@@ -7,8 +7,9 @@ background-image: url("wall.png")
 }
 p {
 text-align: center;
-font-family: Aria;;
-font-size: 3.5vw
+font-family: Void;
+font-size: 3.5vw;
+line-height: 4vw;
 }
 
 .eh {
