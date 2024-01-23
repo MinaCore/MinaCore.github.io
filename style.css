@@ -8,12 +8,12 @@ background-image: url("wall.png")
 p {
 text-align: center;
 font-family: Void;
-font-size: 24px
+font-size: 25vw
 }
 
 .eh {
 margin: auto;
-width: 75vw;
+width: 95vw;
 background-color: #ffdad9;
 border-radius: 25px;
 padding: 10px 10px 10px 10px
