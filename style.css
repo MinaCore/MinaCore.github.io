@@ -2,15 +2,14 @@
   font-family: "Void";
   src: url('Regular.ttf');
 }
- html {
-background-image: url("wall.png")
-}
-p {
-text-align: center;
-font-family: Void;
-font-size: 3.5vw;
-line-height: 4vw;
-}
+
+@media screen and (max-width: 720px) {
+  p {
+	text-align: center;
+	font-family: Void;
+	font-size: 3.5vw;
+	line-height: 4vw;
+    }
 
 .eh {
 margin: auto;
@@ -19,3 +18,28 @@ background-color: #ffdad9;
 border-radius: 25px;
 padding: 10px 10px 10px 10px;
 }
+
+}
+
+@media screen and (min-width: 720px) {
+  p {
+text-align: center;
+font-family: Void;
+font-size: 2.5vh;
+line-height: 3vh;
+}
+
+.eh {
+margin: auto;
+width: 65vh;
+background-color: #ffdad9;
+border-radius: 25px;
+padding: 10px 10px 10px 10px;
+}
+
+}
+
+ html {
+background-image: url("wall.png")
+}
+
