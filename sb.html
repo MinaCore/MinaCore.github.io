@@ -14,7 +14,7 @@
         :root {
             --bg-color: #111112;
             --block-bg: #1a1a1c;
-            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.12);
             --text-main: #ffffff;
             --text-muted: #8e8e93;
             --accent-green: #21a038;
@@ -31,17 +31,76 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: linear-gradient(180deg, #4b6a88 0%, #111112 35%);
+            background-image: linear-gradient(180deg, #6b8cae 0%, #2b3138 22%, #111112 45%);
             background-repeat: no-repeat;
             background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
             padding-top: env(safe-area-inset-top, 40px);
-            padding-bottom: 100px; /* под нижнее меню */
+            padding-bottom: 100px;
             overscroll-behavior-y: none;
         }
 
-        /* убираем обводку при редактировании текста, чтобы не палиться */
+        /* --- SPLASH SCREEN --- */
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #111112;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #splash.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #21a038, #156524);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(33, 160, 56, 0.3);
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .splash-logo-text {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .splash-loader {
+            margin-top: 40px;
+            width: 32px;
+            height: 32px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--accent-green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(0.95); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* ---------------------- */
+
         [contenteditable="true"] {
             outline: none;
             border-bottom: 1px dashed transparent;
@@ -55,7 +114,7 @@
         .header {
             display: flex;
             align-items: center;
-            padding: 16px 20px;
+            padding: 12px 20px;
             gap: 12px;
         }
         .icon-btn {
@@ -66,6 +125,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
         .search-bar {
             flex-grow: 1;
@@ -75,13 +135,13 @@
             display: flex;
             align-items: center;
             padding: 0 16px;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.8);
             font-size: 15px;
         }
 
         /* Total Balance */
         .total-balance {
-            padding: 10px 20px;
+            padding: 10px 20px 16px;
         }
         .total-label {
             font-size: 13px;
@@ -101,17 +161,17 @@
         .total-icons {
             display: flex;
             gap: 16px;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.7);
         }
 
         /* Widgets Scroll */
         .widgets-scroll {
             display: flex;
-            padding: 16px 20px;
+            padding: 0 20px 16px;
             gap: 12px;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
             scrollbar-width: none;
+            direction: ltr;
         }
         .widgets-scroll::-webkit-scrollbar { display: none; }
         
@@ -119,6 +179,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            flex-shrink: 0;
         }
         .small-widget {
             width: 56px;
@@ -128,10 +189,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
         
         .card-widget {
-            min-width: 160px;
+            min-width: 150px;
             height: 124px;
             background: var(--glass-bg);
             border-radius: 20px;
@@ -139,7 +201,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            scroll-snap-align: start;
+            flex-shrink: 0;
         }
         .card-logo-mir {
             width: 32px;
@@ -168,12 +230,12 @@
             color: rgba(255,255,255,0.6);
         }
 
-        /* Sections */
+        /* Section Headings */
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 24px 20px 12px;
+            padding: 16px 20px 12px;
         }
         .section-title {
             font-size: 20px;
@@ -191,7 +253,49 @@
             background: var(--block-bg);
             border-radius: 24px;
             margin: 0 16px;
-            padding: 20px;
+            padding: 16px;
+        }
+
+        /* History List Block */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .history-icon {
+            width: 44px;
+            height: 44px;
+            background: #242426;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .history-title-text {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .history-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .history-val {
+            font-size: 15px;
+            font-weight: 600;
+            text-align: right;
         }
 
         /* Transfers Block */
@@ -201,7 +305,7 @@
             background: #232325;
             border-radius: 16px;
             padding: 6px 6px 6px 16px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .transfer-input-text {
             flex-grow: 1;
@@ -217,6 +321,7 @@
             align-items: center;
             justify-content: center;
             margin-left: 12px;
+            flex-shrink: 0;
         }
 
         .quick-actions {
@@ -282,6 +387,7 @@
             justify-content: space-between;
             padding: 12px 24px env(safe-area-inset-bottom, 12px);
             border-top: 1px solid rgba(255,255,255,0.05);
+            z-index: 100;
         }
         .nav-item {
             display: flex;
@@ -302,6 +408,14 @@
     </style>
 </head>
 <body>
+
+    <!-- Заставка (Splash Screen) -->
+    <div id="splash">
+        <div class="splash-logo">
+            <span class="splash-logo-text">S</span>
+        </div>
+        <div class="splash-loader"></div>
+    </div>
 
     <!-- Шапка -->
     <div class="header">
@@ -333,7 +447,7 @@
     </div>
 
     <!-- Карточки сбоку -->
-    <div class="widgets-scroll">
+    <div class="widgets-scroll" id="widgets-container">
         <div class="widget-col">
             <div class="small-widget">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9V5a2 2 0 0 1 2-2h4M21 9V5a2 2 0 0 0-2-2h-4M3 15v4a2 2 0 0 0 2 2h4M21 15v4a2 2 0 0 1-2 2h-4M9 9h6v6H9z"/></svg>
@@ -360,14 +474,51 @@
         </div>
     </div>
 
-    <!-- История -->
+    <!-- Редактируемая История -->
     <div class="section-header">
         <div class="section-title">История ˅</div>
         <div class="btn-more">Ещё ></div>
     </div>
 
+    <div class="block-container">
+        <div class="history-list">
+            <div class="history-item">
+                <div class="history-left">
+                    <div class="history-icon" contenteditable="true" id="h-icon-1">💸</div>
+                    <div>
+                        <div class="history-title-text" contenteditable="true" id="h-title-1">Перевод от Артема</div>
+                        <div class="history-sub" contenteditable="true" id="h-sub-1">Сегодня, 16:42 • Карта •• 9795</div>
+                    </div>
+                </div>
+                <div class="history-val" style="color: #21a038;" contenteditable="true" id="h-val-1">+ 50 000 ₽</div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-left">
+                    <div class="history-icon" contenteditable="true" id="h-icon-2">🛒</div>
+                    <div>
+                        <div class="history-title-text" contenteditable="true" id="h-title-2">Супермаркет</div>
+                        <div class="history-sub" contenteditable="true" id="h-sub-2">Вчера, 20:15 • Продукты</div>
+                    </div>
+                </div>
+                <div class="history-val" contenteditable="true" id="h-val-2">- 1 450 ₽</div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-left">
+                    <div class="history-icon" contenteditable="true" id="h-icon-3">👑</div>
+                    <div>
+                        <div class="history-title-text" contenteditable="true" id="h-title-3">Крипто-вывод</div>
+                        <div class="history-sub" contenteditable="true" id="h-sub-3">28 июля • На карту</div>
+                    </div>
+                </div>
+                <div class="history-val" style="color: #21a038;" contenteditable="true" id="h-val-3">+ 300 000 ₽</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Переводы -->
-    <div class="section-header" style="padding-top: 10px;">
+    <div class="section-header">
         <div class="section-title">Переводы</div>
     </div>
     <div class="block-container">
@@ -414,7 +565,7 @@
     <div class="section-header">
         <div class="section-title">Сервисы</div>
     </div>
-    <div class="widgets-scroll" style="padding-top: 0;">
+    <div class="widgets-scroll" style="padding-bottom: 0;">
         <div class="card-widget" style="background: var(--block-bg); height: 100px; justify-content: space-between;">
             <div style="font-size: 13px; font-weight: 500;">Оформить карту, вклад<br>и другое</div>
             <div style="font-size: 20px;">+</div>
@@ -451,18 +602,47 @@
         </div>
     </div>
 
-    <!-- Скрипт для сохранения твоих фейк-миллионов -->
     <script>
+        // Анимация сплеш-скрина
+        window.addEventListener('load', () => {
+            // Фикс скролла ленты карточек
+            document.getElementById('widgets-container').scrollLeft = 0;
+            
+            // Плавное убирание сплеша через 1.2 сек
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.classList.add('hidden');
+            }, 1200);
+        });
+
+        // Сохранение и динамическая смена цвета
         document.querySelectorAll('[contenteditable="true"]').forEach(el => {
-            // При загрузке тянем из памяти
             const savedData = localStorage.getItem(el.id);
             if (savedData) {
                 el.innerText = savedData;
             }
-            // При вводе сохраняем
+
+            const savedColor = localStorage.getItem(el.id + '_color');
+            if (savedColor) {
+                el.style.color = savedColor;
+            }
+
             el.addEventListener('input', () => {
                 localStorage.setItem(el.id, el.innerText);
             });
+
+            // Двойной быстрый тап по сумме в истории сменяет цвет (зеленый <-> белый)
+            if (el.classList.contains('history-val')) {
+                el.addEventListener('dblclick', () => {
+                    const currentColor = el.style.color;
+                    if (currentColor === 'rgb(33, 160, 56)' || currentColor === '#21a038') {
+                        el.style.color = '#ffffff';
+                    } else {
+                        el.style.color = '#21a038';
+                    }
+                    localStorage.setItem(el.id + '_color', el.style.color);
+                });
+            }
         });
     </script>
 </body>
